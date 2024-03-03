@@ -1,95 +1,50 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import {
+    Box,
+    Button,
+    Container,
+    Heading,
+    Text,
+    VStack,
+    HStack,
+    Spacer,
+    useColorModeValue,
+} from '@chakra-ui/react';
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    //const bg = useColorModeValue('gray.50', 'gray.800')
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    return (
+        <Box>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        <Container maxW="container.xl" py={10} colorScheme="blue">
+            <Box
+            bgImage="url('images/header.jpg')"
+            bgPos="top"
+            bgSize="cover"
+            borderRadius="20"
+            py={200}
+            >
+                <VStack my="-100px">
+                    <Heading color="gray.800">Language Leap</Heading>
+                    <Text color="gray.700">If you want to learn, we're here to teach.</Text>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+                    <Box textAlign="center" pt={5}>
+                        <Heading color="gray.700">Discover Japanese learning</Heading>
+                        <Text mt={4} fontSize="lg" color="gray.700">Join our community and start your journey to fluency today!</Text>
+                    </Box>
+                    <HStack>
+                        <Button colorScheme="blue" size="lg">Get Started</Button>
+                        <Button colorScheme="gray" variant="solid" size="lg">Learn More</Button>
+                    </HStack>
+                </VStack>
+            </Box>
+        </Container>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
+        <Box as="footer" py={10}>
+            <Text align="center">&copy; {new Date().getFullYear()} Language Leap. All rights reserved.</Text>
+        </Box>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+        </Box>
+    );
 }
+  
