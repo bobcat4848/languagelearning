@@ -72,7 +72,7 @@ export default function Navbar() {
         <Box>
             <Alert status='info' justifyContent="center">
                 <AlertIcon />
-                The site is running in evaluation mode, all resources are currently free to try.
+                The site is running in evaluation mode, all resources are currently free to try. Evaluation ends May 20th, 2024.
             </Alert>
 
             <Flex maxW="container.xl" m="auto" mt={5} textAlign="center" alignItems='center' justifyContent="center" gap='2'>
