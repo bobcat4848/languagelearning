@@ -101,8 +101,64 @@ export default function Home() {
                     </Box>
                 </HStack>
             </VStack>
-
         </Container>
+
+        <VStack spacing={2} textAlign="center">
+            <Heading as="del" fontSize="4xl">Choose Your Plan</Heading> 
+            <Heading>Free during evaluation</Heading>
+            <Text fontSize="lg" color={'gray.500'}>
+                Select the plan that best suits your needs.
+            </Text>
+
+            <HStack textAlign="center" justify="center" py={50}>
+                <Box w="full" shadow="md" rounded="lg" overflow="hidden" bg="gray.800">
+                    <Box py={4} px={12} bg="blue.800" color="white">
+                        <Text fontWeight="500" fontSize="2xl">
+                            Monthly
+                        </Text>
+                        <HStack justifyContent="center">
+                            <Text fontSize="3xl" fontWeight="600">
+                                $4.99
+                            </Text>
+                            <Text fontSize="xl" color="gray.200">
+                                /month
+                            </Text>
+                        </HStack>
+                    </Box>
+                    <Box h="100%" py={4} px={12} bg="gray.700" color="white">
+                        <Text fontWeight="600">Access to all features</Text>
+                        <Text mt={5}>Chat with a Japanese Native</Text>
+                        <Text mt={5}>Use SRS cards to memorize Kanji</Text>
+                        <Text mt={5}>Premium support</Text>
+                        <Button mt={4} colorScheme="blue">Choose Plan</Button>
+                    </Box>
+                </Box>
+
+                <Box w="full" bg="black" shadow="md" rounded="lg" overflow="hidden">
+                    <Box py={4} px={12} bg="green.800" color="white">
+                        <Text fontWeight="500" fontSize="2xl">
+                            Yearly
+                        </Text>
+                        <HStack justifyContent="center">
+                            <Text fontSize="3xl" fontWeight="600">
+                                $49.99
+                            </Text>
+                            <Text fontSize="xl" color="gray.200">
+                                /year
+                            </Text>
+                        </HStack>
+                    </Box>
+                    <Box py={4} px={12} bg="gray.700" color="white">
+                        <Text fontWeight="600">Access to all features</Text>
+                        <Text mt={5}>Chat with a Japanese Native</Text>
+                        <Text mt={5}>Use SRS cards to memorize Kanji</Text>
+                        <Text mt={5}>Premium support</Text>
+                        <Button mt={4} colorScheme="green">Choose Plan</Button>
+                    </Box>
+                </Box>
+            </HStack>
+        </VStack>
+
 
         <VStack bgColor="gray.700" pt={10}>
             <Box textAlign="center">
