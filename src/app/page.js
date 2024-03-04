@@ -6,48 +6,19 @@ import {
     Text,
     VStack,
     HStack,
-    Icon,
     Spacer,
-    Alert,
-    AlertIcon,
     Avatar,
-    Flex,
-    ButtonGroup
 } from '@chakra-ui/react';
 
 import { IoLanguage, IoRepeat, IoGameController } from "react-icons/io5";
+import Navbar from '@/components/Navbar';
 
 
 export default function Home() {
-    //const bg = useColorModeValue('gray.50', 'gray.800')
 
     return (
         <Box>
-            <Box>
-                <Alert status='info' justifyContent="center">
-                    <AlertIcon />
-                    The site is running in evaluation mode, all resources are currently free to try.
-                </Alert>
-
-                <Flex maxW="container.xl" m="auto" mt={5} textAlign="center" alignItems='center' justifyContent="center" gap='2'>
-                    <Box p='2'>
-                        <Heading size='md'>Language Leap</Heading>
-                    </Box>
-                    <Spacer />
-                    <ButtonGroup gap='2'>
-                    <Button colorScheme="blue" variant="outline">
-                        Login
-                    </Button>
-
-                    <Button colorScheme="blue" variant="solid">
-                        Get Started --- it's free
-                    </Button>
-                    </ButtonGroup>
-                </Flex>
-            </Box>
-
-
-
+        <Navbar/>
         <Container maxW="container.xl" py={10}>
             <Box
             backgroundImage="images/header.jpg"
