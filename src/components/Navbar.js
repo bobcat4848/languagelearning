@@ -25,7 +25,7 @@ import {
     Text,
     Tooltip
 } from '@chakra-ui/react';
-
+import Login from '@/components/login'
 export default function Navbar() {
     const { isOpen: isLoginOpen, onOpen: onLoginOpen, onClose: onLoginClose } = useDisclosure();
     const { isOpen: isRegisterOpen, onOpen: onRegisterOpen, onClose: onRegisterClose } = useDisclosure();
@@ -81,13 +81,7 @@ export default function Navbar() {
                 </Box>
                 <Spacer />
                 <ButtonGroup gap='2'>
-                <Button colorScheme="blue" variant="outline" onClick={onLoginOpen}>
-                    Login
-                </Button>
-
-                <Button colorScheme="blue" variant="solid" onClick={onRegisterOpen}>
-                    Get Started --- it's free
-                </Button>
+                <Login/>
                 </ButtonGroup>
             </Flex>
             
