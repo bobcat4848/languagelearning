@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 import { IoLanguage, IoRepeat, IoGameController } from "react-icons/io5";
-import Navbar from '@/components/Navbar';
+import Navbar from '../components/Navbar';
 
 
 export default function Home() {
