@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 import { IoLanguage, IoRepeat, IoGameController } from "react-icons/io5";
-import Navbar from '@/components/Navbar';
+import Navbar from '../components/Navbar';
 
 
 export default function Home() {
@@ -75,7 +75,7 @@ export default function Home() {
                 <HStack>
                     <Box maxW="lg" borderWidth="1px" borderRadius="lg" overflow="hidden" p={5}>
                         <VStack align="start">
-                            <Avatar name="Sarah Doe" src="path_to_image" />
+                            <Avatar name="Sarah Doe" src="" />
                             <Text fontWeight="bold">Sarah Doe</Text>
                             <Text fontSize="sm">Language Enthusiast</Text>
                             <Text mt={4}>Learning Japanese has always been a dream of mine, and Language Leap's intuitive platform made it possible. The lessons are engaging and effective!</Text>
@@ -84,7 +84,7 @@ export default function Home() {
 
                     <Box maxW="lg" borderWidth="1px" borderRadius="lg" overflow="hidden" p={5}>
                         <VStack align="start">
-                            <Avatar name="John Smith" src="path_to_image" />
+                            <Avatar name="John Smith" src="" />
                             <Text fontWeight="bold">John Smith</Text>
                             <Text fontSize="sm">Tech Professional</Text>
                             <Text mt={4}>The interactive exercises and the SRS system helped me to improve my Japanese significantly. The progress tracking is motivating!</Text>
@@ -93,7 +93,7 @@ export default function Home() {
 
                     <Box maxW="lg" borderWidth="1px" borderRadius="lg" overflow="hidden" p={5}>
                         <VStack align="start">
-                            <Avatar name="Jane Doe" src="path_to_image" />
+                            <Avatar name="Jane Doe" src="" />
                             <Text fontWeight="bold">Jane Doe</Text>
                             <Text fontSize="sm">University Student</Text>
                             <Text mt={4}>As a student, I find Language Leap's flexible scheduling and personalized learning paths incredibly valuable. It's fun and effective!</Text>

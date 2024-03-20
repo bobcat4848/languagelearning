@@ -1,5 +1,5 @@
+import { AuthProvider } from '@/authProviders';
 import { Providers } from './providers'
-import {UserProvider} from "@auth0/nextjs-auth0/client";
 
 export const metadata = {
   title: "Japanese Learning",
@@ -9,9 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
       <html lang='en'>
-        <UserProvider>
-          <body><Providers>{children}</Providers></body>
-        </UserProvider>
+          <body><AuthProvider><Providers>{children}</Providers></AuthProvider></body>
       </html>
     )
   }
