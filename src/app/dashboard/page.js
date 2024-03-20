@@ -17,7 +17,7 @@ export default function Dashboard() {
         <Text>Hello, {session?.user?.email}!Welcome to your dashboard!</Text>
         <Box mt="6">
           <Link href="/profile" passHref>
-            <Button as="a" colorScheme="blue" mr="4">
+            <Button colorScheme="blue" mr="4">
               Go to Profile
             </Button>
           </Link>
