@@ -21,11 +21,9 @@ export default function Dashboard() {
               Go to Profile
             </Button>
           </Link>
-          <Link href="/" passHref>
-            <Button colorScheme="green" onClick={() => signOut()}>
-              Log Out
+            <Button colorScheme="green" onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
+                Log Out
             </Button>
-          </Link>
         </Box>
       </Box>
     </Container>
