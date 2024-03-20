@@ -21,7 +21,7 @@ export default function Dashboard() {
               Go to Profile
             </Button>
           </Link>
-          <Link href="/settings" passHref>
+          <Link href="/" passHref>
             <Button colorScheme="green" onClick={() => signOut()}>
               Log Out
             </Button>
