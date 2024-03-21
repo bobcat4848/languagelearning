@@ -204,7 +204,7 @@ export default function Dashboard() {
         </Box>
       </Flex>
 
-      <Accordion defaultIndex={[0]} allowMultiple>
+      <Accordion defaultIndex={[0]} allowMultiple mt={5}>
           <AccordionItem>
             <h2>
               <AccordionButton>
