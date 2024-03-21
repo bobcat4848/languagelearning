@@ -225,6 +225,10 @@ export default function Dashboard() {
           </AccordionItem>
         </Accordion>
     </Container>
+
+    <Box as="footer" py={10}>
+    <Text align="center">&copy; {new Date().getFullYear()} Language Leap. All rights reserved.</Text>
+    </Box>
     </>
   );
 }
