@@ -185,7 +185,7 @@ export default function Dashboard() {
                     <Icon as={FaPercent} w={8} h={8} />
                     <Text fontSize="xl">Your Stats</Text>
                 </HStack>
-                <LinkOverlay href="/srs"/>
+                <LinkOverlay href="/stats"/>
             </LinkBox>
             </VStack>
           </VStack>
