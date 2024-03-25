@@ -5,28 +5,17 @@ import {
   Container, Box, Heading, Text, Button, Progress, useToast, VStack, LinkBox, LinkOverlay, Icon, 
   useColorModeValue, Flex, Stack, Badge, HStack, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel, SimpleGrid
 } from '@chakra-ui/react';
-import { FaUserCircle, FaRobot, FaBookOpen, FaChessRook, FaPercent, FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import icons
-import Link from 'next/link';
-import { signOut } from "next-auth/react";
+import { FaRobot, FaBookOpen, FaChessRook, FaPercent, FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import icons
 import { useSession } from "next-auth/react";
+import AccountNavbar from '@/components/AccountNavbar';
 
 export default function Dashboard() {
   const { data: session } = useSession();
+  console.log(session);
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  const toast = useToast();
   const bgColor = useColorModeValue('white', 'gray.700');
   const hoverBgColor = useColorModeValue('gray.100', 'gray.600');
-
-  const handleSignOut = () => {
-    signOut({ redirect: true, callbackUrl: '/' });
-    toast({
-      title: 'Logged out successfully.',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    });
-  };
 
   // Example log data, replace with actual data once we get that working
   const userLogs = [
@@ -89,19 +78,7 @@ export default function Dashboard() {
 
   return (
     <>
-    <Box as="nav" bg={bgColor} w="100%" p={4} color="black" boxShadow="sm">
-        <Container maxW="6xl" display="flex" justifyContent="space-between" alignItems="center">
-          <Heading as="h3" size="lg" color="white">Language Leap</Heading>
-          <HStack spacing={8}>
-            <Link href="/profile" passHref>
-              <Button leftIcon={<FaUserCircle/>} colorScheme="blue" variant="ghost">Profile</Button>
-            </Link>
-            <Button colorScheme="red" onClick={handleSignOut} variant="ghost">Log Out</Button>
-          </HStack>
-        </Container>
-      </Box>
-
-
+      <AccountNavbar/>
 
       <Container maxW="6xl" p={5}>
       <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
@@ -167,7 +144,7 @@ export default function Dashboard() {
                     <Icon as={FaBookOpen} w={8} h={8} />
                     <Text fontSize="xl">Study Kanji</Text>
                 </HStack>
-                <LinkOverlay href="/srs"/>
+                <LinkOverlay href="/kanji"/>
             </LinkBox>
 
             <LinkBox
