@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import React, { useState } from 'react';
 import {
   Container, Box, Heading, Text, Button, Progress, useToast, VStack, LinkBox, LinkOverlay, Icon, 
@@ -8,14 +7,23 @@ import {
 import { FaRobot, FaBookOpen, FaChessRook, FaPercent, FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import icons
 import { useSession } from "next-auth/react";
 import AccountNavbar from '@/components/AccountNavbar';
+import { useRouter } from 'next/navigation';
 
 export default function Dashboard() {
-  const { data: session } = useSession();
-  console.log(session);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const bgColor = useColorModeValue('white', 'gray.700');
   const hoverBgColor = useColorModeValue('gray.100', 'gray.600');
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  if (status === 'loading') {
+    return null; 
+  }
+
+  if (!session) {
+    router.push('/login');
+    return null; 
+  }
 
   // Example log data, replace with actual data once we get that working
   const userLogs = [
