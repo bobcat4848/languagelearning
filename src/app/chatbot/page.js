@@ -1,18 +1,24 @@
-"use client"
+'use client';
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { Flex, Input, Button, VStack, Text, Container, Box } from '@chakra-ui/react';
 import { ChatIcon } from '@chakra-ui/icons';
 import AccountNavbar from '@/components/AccountNavbar';
 import axios from 'axios';
 
 const ChatPage = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [inputText, setInputText] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
     // Scroll to the bottom of the chat container when chat history changes
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [chatHistory]);
 
   const sendMessage = async () => {
@@ -70,24 +76,34 @@ const ChatPage = () => {
     }
   };
 
+  if (status === 'loading') {
+    return null;
+  }
+
+  // If user is not authenticated, redirect to login page
+  if (!session) {
+    router.push('/login');
+    return null; // Prevent further rendering
+  }
+
   return (
     <>
-    <AccountNavbar />
-    <Container maxW="6xl" p={5}>
-    <Flex direction="column" h="90vh">
-        <Flex flex="1" p="4" direction="column" justify="flex-end" overflowY="scroll" sx={{
-                // Hide scrollbar
-                '&::-webkit-scrollbar': {
-                  width: '0px',
-                  background: 'transparent',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  display: 'none',
-                },
-                scrollbarWidth: 'none',
-                '-ms-overflow-style': 'none',
-              }}>
-        <Box
+      <AccountNavbar />
+      <Container maxW="6xl" p={5}>
+        <Flex direction="column" h="90vh">
+          <Flex flex="1" p="4" direction="column" justify="flex-end" overflowY="scroll" sx={{
+            // Hide scrollbar
+            '&::-webkit-scrollbar': {
+              width: '0px',
+              background: 'transparent',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              display: 'none',
+            },
+            scrollbarWidth: 'none',
+            '-ms-overflow-style': 'none',
+          }}>
+            <Box
               ref={chatContainerRef}
               flex="1"
               overflowY="scroll"
@@ -104,36 +120,34 @@ const ChatPage = () => {
                 '-ms-overflow-style': 'none',
               }}
             >
-                <VStack spacing="4" align="stretch">
+              <VStack spacing="4" align="stretch">
                 {chatHistory.map((chat, index) => (
-                    <Flex key={index} justify={chat.sender === 'user' ? 'flex-end' : 'flex-start'}>
+                  <Flex key={index} justify={chat.sender === 'user' ? 'flex-end' : 'flex-start'}>
                     <Text p="2" maxW="80%" bg={chat.sender === 'user' ? 'green.200' : 'blue.200'} borderRadius="md">
-                        {chat.message}
+                      {chat.message}
                     </Text>
-                    </Flex>
+                  </Flex>
                 ))}
-                </VStack>
+              </VStack>
             </Box>
-        </Flex>
-        <Flex p="4">
+          </Flex>
+          <Flex p="4">
             <Input
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Type your message here..."
-            variant="filled"
-            mr="2"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Type your message here..."
+              variant="filled"
+              mr="2"
             />
             <Button onClick={sendMessage} leftIcon={<ChatIcon />} colorScheme="blue">
-            Send
+              Send
             </Button>
+          </Flex>
         </Flex>
-        </Flex>
-    </Container>
+      </Container>
     </>
   );
 };
 
 export default ChatPage;
-
-
