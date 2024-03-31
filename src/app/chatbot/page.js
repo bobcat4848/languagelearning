@@ -1,6 +1,6 @@
 "use client"
-import React, { useState } from 'react';
-import { Flex, Input, Button, VStack, Text, Container } from '@chakra-ui/react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Flex, Input, Button, VStack, Text, Container, Box } from '@chakra-ui/react';
 import { ChatIcon } from '@chakra-ui/icons';
 import AccountNavbar from '@/components/AccountNavbar';
 import axios from 'axios';
@@ -8,6 +8,12 @@ import axios from 'axios';
 const ChatPage = () => {
   const [inputText, setInputText] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to the bottom of the chat container when chat history changes
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [chatHistory]);
 
   const sendMessage = async () => {
     if (!inputText.trim()) return;
@@ -69,16 +75,45 @@ const ChatPage = () => {
     <AccountNavbar />
     <Container maxW="6xl" p={5}>
     <Flex direction="column" h="90vh">
-        <Flex flex="1" p="4" direction="column" justify="flex-end">
-            <VStack spacing="4" align="stretch" overflowY="auto">
-            {chatHistory.map((chat, index) => (
-                <Flex key={index} justify={chat.sender === 'user' ? 'flex-end' : 'flex-start'}>
-                <Text p="2" maxW="80%" bg={chat.sender === 'user' ? 'green.200' : 'blue.200'} borderRadius="md">
-                    {chat.message}
-                </Text>
-                </Flex>
-            ))}
-            </VStack>
+        <Flex flex="1" p="4" direction="column" justify="flex-end" overflowY="scroll" sx={{
+                // Hide scrollbar
+                '&::-webkit-scrollbar': {
+                  width: '0px',
+                  background: 'transparent',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  display: 'none',
+                },
+                scrollbarWidth: 'none',
+                '-ms-overflow-style': 'none',
+              }}>
+        <Box
+              ref={chatContainerRef}
+              flex="1"
+              overflowY="scroll"
+              sx={{
+                // Hide scrollbar
+                '&::-webkit-scrollbar': {
+                  width: '0px',
+                  background: 'transparent',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  display: 'none',
+                },
+                scrollbarWidth: 'none',
+                '-ms-overflow-style': 'none',
+              }}
+            >
+                <VStack spacing="4" align="stretch">
+                {chatHistory.map((chat, index) => (
+                    <Flex key={index} justify={chat.sender === 'user' ? 'flex-end' : 'flex-start'}>
+                    <Text p="2" maxW="80%" bg={chat.sender === 'user' ? 'green.200' : 'blue.200'} borderRadius="md">
+                        {chat.message}
+                    </Text>
+                    </Flex>
+                ))}
+                </VStack>
+            </Box>
         </Flex>
         <Flex p="4">
             <Input
@@ -100,4 +135,5 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
+
 
