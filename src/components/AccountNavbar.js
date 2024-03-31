@@ -26,7 +26,7 @@ const AccountNavbar = () => {
         <Link href="/dashboard" passHref>
             <Heading as="h3" size="lg" color="white">Language Leap</Heading>
         </Link>
-        <HStack spacing={8}>
+        <HStack>
           <Link href="/profile" passHref>
             <Button leftIcon={<FaUserCircle />} colorScheme="blue" variant="ghost">Profile</Button>
           </Link>
