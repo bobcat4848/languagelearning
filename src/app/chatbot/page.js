@@ -21,11 +21,21 @@ const ChatPage = () => {
     setInputText('');
   
     try {
+      const lastUserMessages = updatedChatHistory
+        .filter(chat => chat.sender === 'user')
+        .slice(-10); // Get last 10 user messages to prevent too many tokens being used
+
+      const lastBotMessages = updatedChatHistory
+        .filter(chat => chat.sender === 'assistant')
+        .slice(-10); // Get last 10 assistant messages to prevent too many tokens being used
+
+      const messagesToSend = [...lastUserMessages, ...lastBotMessages];
+
       const response = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
           model: 'gpt-4-0125-preview',
-          messages: updatedChatHistory.map(chat => ({ role: chat.sender, content: chat.message })),
+          messages: messagesToSend.map(chat => ({ role: chat.sender, content: chat.message })),
         },
         {
           headers: {
@@ -90,3 +100,4 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
+
