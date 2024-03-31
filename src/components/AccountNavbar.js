@@ -23,7 +23,9 @@ const AccountNavbar = () => {
   return (
     <Box as="nav" bg={bgColor} w="100%" p={4} color="black" boxShadow="sm">
       <Container maxW="6xl" display="flex" justifyContent="space-between" alignItems="center">
-        <Heading as="h3" size="lg" color="white">Language Leap</Heading>
+        <Link href="/dashboard" passHref>
+            <Heading as="h3" size="lg" color="white">Language Leap</Heading>
+        </Link>
         <HStack spacing={8}>
           <Link href="/profile" passHref>
             <Button leftIcon={<FaUserCircle />} colorScheme="blue" variant="ghost">Profile</Button>
