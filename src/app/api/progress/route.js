@@ -28,17 +28,14 @@ export async function POST(req) {
     await connectMongoDB(); // Ensure Mongoose connection is established
     
     const { email, kanjiId, confidence } = await req.json();
-    console.log("test")
-    console.log(email, kanjiId, confidence);
 
     if (!email || !kanjiId || !confidence) {
         return NextResponse.json({ message: "Missing required fields." }, { status: 400 });
     }
 
     try {
-        console.log(email)
         const user = await User.findOne({ email });
-        console.log(user);
+
         if (!user) {
             return NextResponse.json({ message: "User not found." }, { status: 404 });
         }

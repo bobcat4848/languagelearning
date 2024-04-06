@@ -5,19 +5,19 @@ import Progress from "@models/progress";
 import Kanji from 'kanji.js';
 import crypto from 'crypto';
 
+// Store Kanji in hexadecimal
 function generateKanjiId(kanji) {
     const hash = crypto.createHash('sha256');
     hash.update(kanji.literal); 
-    return hash.digest('hex');  // Returns a hexadecimal string since MongoDB does not support Japanese characters
+    return hash.digest('hex'); 
 }
 
 export async function POST(req) {
     if (req.method === 'POST') {
         const { userEmail } = await req.json();
-        console.log(userEmail)
+        
         if (!userEmail) {
             return NextResponse.json({ message: "Email is required as a query parameter." }, {status: 400});
-            return;
         }
 
         await connectMongoDB();
@@ -44,8 +44,12 @@ export async function POST(req) {
             const newKanji = allKanji.filter(kanji => !learnedKanjiIds.includes(kanji.id)).slice(0, 10);
             const kanjiForReview = allKanji.filter(kanji => reviewableKanji.includes(kanji.id));
 
+            // Mark kanji as new or for review
+            const markedNewKanji = newKanji.map(kanji => ({ ...kanji, status: 'new' }));
+            const markedReviewKanji = kanjiForReview.map(kanji => ({ ...kanji, status: 'review' }));
+
             // Combine new kanji and kanji for review
-            const kanjiToStudy = [...newKanji, ...kanjiForReview];
+            const kanjiToStudy = [...markedNewKanji, ...markedReviewKanji];
 
             return NextResponse.json({kanjiToStudy}, {status: 200});
         } catch (error) {

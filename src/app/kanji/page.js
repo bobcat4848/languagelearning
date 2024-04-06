@@ -64,7 +64,7 @@ export default function KanjiStudyPage() {
         <>
             <AccountNavbar/>
             <Container centerContent>
-                <VStack mt={25} spacing={8}>
+                <VStack mt={25} spacing={8} w="100%">
                     {!isFinished ? (
                         kanjiList.length > 0 ? (
                             <KanjiCard
