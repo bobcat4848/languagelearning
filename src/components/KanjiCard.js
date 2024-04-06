@@ -1,16 +1,25 @@
 import React from 'react';
-import { Box, Text, Button, HStack } from '@chakra-ui/react';
+import { Box, Text, Button, VStack, HStack, Badge } from '@chakra-ui/react';
 
 const KanjiCard = ({ kanji, onReview }) => {
     return (
-        <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-            <Text fontSize="4xl" mb={4}>{kanji.character}</Text>
-            <Text fontSize="xl" mb={4}>{kanji.meaning}</Text>
-            <Text mb={4}>{kanji.example}</Text>
-            <HStack justify="center">
-                <Button colorScheme="red" onClick={() => onReview('unhappy')}>😟</Button>
-                <Button colorScheme="yellow" onClick={() => onReview('neutral')}>😐</Button>
-                <Button colorScheme="green" onClick={() => onReview('happy')}>😊</Button>
+        <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" w="100%">
+            <VStack spacing={4}>
+                <VStack width="100%">
+                    <Badge colorScheme={kanji.status === 'new' ? 'green' : 'purple'}>
+                        {kanji.status === 'new' ? 'New' : 'Review'}
+                    </Badge>
+                    <Text fontSize="4xl">{kanji.literal}</Text>
+                </VStack>
+                <Text fontSize="xl">Meanings: {kanji.meanings.join(', ')}</Text>
+                <Text>Onyomi: {kanji.onyomi.join(', ')}</Text>
+                <Text>Kunyomi: {kanji.kunyomi.join(', ')}</Text>
+                <Text>Stroke Count: {kanji.stroke_count}</Text>
+            </VStack>
+            <HStack justify="center" mt={4}>
+                <Button colorScheme="red" onClick={() => onReview(kanji.id, 'unhappy')}>😟</Button>
+                <Button colorScheme="yellow" onClick={() => onReview(kanji.id, 'neutral')}>😐</Button>
+                <Button colorScheme="green" onClick={() => onReview(kanji.id, 'happy')}>😊</Button>
             </HStack>
         </Box>
     );
