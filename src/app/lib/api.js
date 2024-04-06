@@ -1,5 +1,13 @@
-export async function fetchKanji() {
-    const res = await fetch('/api/kanji');
+export async function fetchKanji(userEmail) {
+    console.log(userEmail)
+    const res = await fetch('/api/kanji', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({userEmail}),
+    });
     if (!res.ok) {
         throw new Error('Failed to fetch Kanji');
     }
