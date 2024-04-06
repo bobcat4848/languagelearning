@@ -40,7 +40,7 @@ export async function POST(req) {
         const user = await User.findOne({ email });
         console.log(user);
         if (!user) {
-            return new Response(JSON.stringify({ message: "User not found." }), { status: 404 });
+            return NextResponse.json({ message: "User not found." }, { status: 404 });
         }
 
         const userId = user._id;
@@ -64,9 +64,9 @@ export async function POST(req) {
                 currentIntervalDays: currentInterval
             }).save();
         }
-        return new NextResponse.json(JSON.stringify({ message: "Progress updated." }), { status: 200 });
+        return NextResponse.json({ message: "Progress updated." }, { status: 200 });
     } catch (error) {
         console.error("Error updating progress:", error);
-        return new NextResponse.json(JSON.stringify({ message: "An error occurred updating the Kanji's progress." }), { status: 500 });
+        return NextResponse.json({ message: "An error occurred updating the Kanji's progress." }, { status: 500 });
     }
 }
