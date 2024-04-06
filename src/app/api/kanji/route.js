@@ -3,8 +3,13 @@ import { connectMongoDB } from "@lib/mongodb";
 import User from '@models/user';
 import Progress from "@models/progress";
 import Kanji from 'kanji.js';
+import crypto from 'crypto';
 
-const kanjiCharacters = Kanji.dump().filter(obj => obj.freq !== null).sort((a, b) => a.freq - b.freq);
+function generateKanjiId(kanji) {
+    const hash = crypto.createHash('sha256');
+    hash.update(kanji.literal); 
+    return hash.digest('hex');  // Returns a hexadecimal string since MongoDB does not support Japanese characters
+}
 
 export async function POST(req) {
     if (req.method === 'POST') {
@@ -22,7 +27,6 @@ export async function POST(req) {
             const user = await User.findOne({ email: userEmail });
             if (!user) {
                 return NextResponse.json({ message: "User not found" }, {status: 404});
-                return;
             }
 
             const userId = user._id;
@@ -33,7 +37,10 @@ export async function POST(req) {
             const reviewableKanji = progressRecords.filter(p => new Date(p.nextReviewDate) <= new Date()).map(p => p.kanjiId);
 
             // Get all kanji characters
-            const allKanji = Kanji.dump().filter(obj => obj.freq !== null).sort((a, b) => a.freq - b.freq);
+            const allKanji = Kanji.dump().map(kanji => ({
+                ...kanji,
+                id: generateKanjiId(kanji)
+            })).filter(obj => obj.freq !== null).sort((a, b) => a.freq - b.freq);
             const newKanji = allKanji.filter(kanji => !learnedKanjiIds.includes(kanji.id)).slice(0, 10);
             const kanjiForReview = allKanji.filter(kanji => reviewableKanji.includes(kanji.id));
 

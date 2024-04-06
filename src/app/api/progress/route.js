@@ -27,23 +27,22 @@ const calculateNextReviewDate = (confidence, currentInterval) => {
 export async function POST(req) {
     await connectMongoDB(); // Ensure Mongoose connection is established
     
-    const { userEmail, kanjiId, confidence } = await req.json();
+    const { email, kanjiId, confidence } = await req.json();
     console.log("test")
-    console.log(userEmail, kanjiId, confidence);
+    console.log(email, kanjiId, confidence);
 
-    if (!userEmail || !kanjiId || !confidence) {
+    if (!email || !kanjiId || !confidence) {
         return NextResponse.json({ message: "Missing required fields." }, { status: 400 });
     }
 
     try {
-        console.log(userEmail)
-        const user = await User.findOne({ userEmail });
+        console.log(email)
+        const user = await User.findOne({ email });
         console.log(user);
         if (!user) {
             return new Response(JSON.stringify({ message: "User not found." }), { status: 404 });
         }
 
-        console.log(user);
         const userId = user._id;
         const currentProgress = await Progress.findOne({ userId, kanjiId }).exec();
         const currentInterval = currentProgress ? currentProgress.currentIntervalDays : 1;

@@ -12,9 +12,9 @@ const KanjiCard = ({ kanji, onReview }) => {
                 <Text>Stroke Count: {kanji.stroke_count}</Text>  // Number of strokes
             </VStack>
             <HStack justify="center" mt={4}>
-                <Button colorScheme="red" onClick={() => onReview(kanji.literal, 'unhappy')}>😟</Button>
-                <Button colorScheme="yellow" onClick={() => onReview(kanji.literal, 'neutral')}>😐</Button>
-                <Button colorScheme="green" onClick={() => onReview(kanji.literal, 'happy')}>😊</Button>
+                <Button colorScheme="red" onClick={() => onReview(kanji.id, 'unhappy')}>😟</Button>
+                <Button colorScheme="yellow" onClick={() => onReview(kanji.id, 'neutral')}>😐</Button>
+                <Button colorScheme="green" onClick={() => onReview(kanji.id, 'happy')}>😊</Button>
             </HStack>
         </Box>
     );
