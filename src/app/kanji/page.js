@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Box, Container, VStack, Button, useToast, Text } from '@chakra-ui/react';
+import { Box, Container, VStack, Button, useToast, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import KanjiCard from '../../components/KanjiCard';
 import AccountNavbar from '@/components/AccountNavbar';
 import { useSession } from "next-auth/react";
@@ -12,10 +12,26 @@ export default function KanjiStudyPage() {
     const [currentKanjiIndex, setCurrentKanjiIndex] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
     const toast = useToast();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [modalOpened, setModalOpened] = useState(false);
 
     useEffect(() => {
         loadKanji();
+        checkModalStatus();
     }, [session]); // Dependency on session to reload kanji when the session is available or changes
+
+    const checkModalStatus = () => {
+        // Check if the user has already seen the modal
+        const modalStatus = localStorage.getItem(`modalShown-kanji-languageleap`);
+        if (!modalStatus) {
+            onOpen();
+        }
+    };
+
+    const handleCloseModal = () => {
+        localStorage.setItem(`modalShown-kanji-languageleap`, 'true');
+        onClose();
+    };
 
     const loadKanji = async () => {
         if (session?.user?.email) {
@@ -39,13 +55,20 @@ export default function KanjiStudyPage() {
         }
     };
 
-    const handleReview = async (kanjiLiteral, confidence) => {
+    const handleReview = async (kanji, confidence) => {
         if (session?.user?.email) {
             try {
-                await saveProgress(session.user.email, kanjiLiteral, confidence);
-                if (currentKanjiIndex + 1 < kanjiList.length) {
-                    setCurrentKanjiIndex(currentKanjiIndex + 1);
-                } else {
+                await saveProgress(session.user.email, kanji.literal, confidence);
+                let newKanjiList = [...kanjiList];
+                if (confidence === 'unhappy') {
+                    // Remove the kanji and add it to the end of the list
+                    newKanjiList.splice(currentKanjiIndex, 1);  // Remove the current kanji
+                    newKanjiList.push(kanji);  // Add it to the end
+                }
+                setKanjiList(newKanjiList);
+                // Move to the next kanji, adjusting index to loop around if necessary
+                setCurrentKanjiIndex(prevIndex => (prevIndex + 1) % newKanjiList.length);
+                if (newKanjiList.length === 0 || (newKanjiList.length - 1 === currentKanjiIndex && confidence !== 'unhappy')) {
                     setIsFinished(true);
                 }
             } catch (error) {
@@ -63,6 +86,23 @@ export default function KanjiStudyPage() {
     return (
         <>
             <AccountNavbar/>
+            <Modal isOpen={isOpen} onClose={handleCloseModal}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Welcome to Kanji Study</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Text>This is your first time here! Let's explain how to use the kanji cards:</Text>
+                        <Text mt={4}>You will see a series of Kanji cards. For each card, you can indicate if you felt "happy" (😊), "neutral" (😐), or "unhappy" (😟) about recalling the kanji. If you choose 😟, the card will appear again later for further review. 😐 will keep your current card review interval and 😊 will push the review interval out.</Text>
+                        <Text mt={4}>Additionally, the kanji are shown by most frequently used, so you'll be learning the most relevant kanji first.</Text>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" onClick={handleCloseModal}>
+                            Got it!
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
             <Container centerContent>
                 <VStack mt={25} spacing={8} w="100%">
                     {!isFinished ? (
