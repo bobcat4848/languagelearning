@@ -55,10 +55,10 @@ export default function KanjiStudyPage() {
         }
     };
 
-    const handleReview = async (kanji, confidence) => {
+    const handleReview = async (kanjiId, confidence) => {
         if (session?.user?.email) {
             try {
-                await saveProgress(session.user.email, kanji.literal, confidence);
+                await saveProgress(session.user.email, kanjiId, confidence);
                 let newKanjiList = [...kanjiList];
                 if (confidence === 'unhappy') {
                     // Remove the kanji and add it to the end of the list
