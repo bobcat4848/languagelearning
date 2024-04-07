@@ -35,7 +35,7 @@ export default function ChangeEmail() {
     
       const response = await fetch('api/update-email', {
         method: "POST",
-        heades: {
+        headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
