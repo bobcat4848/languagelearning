@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Container, Box, Heading, Text, Button, Input, useToast } from '@chakra-ui/react';
@@ -14,10 +14,13 @@ export default function ChangePassword() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  if (!session) {
-    router.push('/login');
-    return null; 
-  }
+
+  useEffect(() => {
+    if (!session) {
+      router.push('/login');
+    }
+  }, [session]);
+  
   const handleChangePassword = async () => {
     try {
       if (newPassword !== confirmPassword) {

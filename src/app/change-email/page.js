@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Container, Box, Heading, Text, Button, Input, useToast } from '@chakra-ui/react';
 import { useSession,signOut } from 'next-auth/react';
@@ -13,10 +13,13 @@ export default function ChangeEmail() {
   const email = session?.user?.email;
   const [newEmail, setNewEmail] = useState('');
   const [error, setError] = useState('');
-  if (!session) {
-    router.push('/login');
-    return null; 
-  }
+
+  useEffect(() => {
+    if (!session) {
+      router.push('/login');
+    }
+  }, [session]);
+
   const handleChangeEmail = async () => {
     try {
         const userAlreadyExistsRes = await fetch('api/userAlreadyExists', {
