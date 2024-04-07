@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState } from 'react';
 import {
   Container,
@@ -9,36 +9,40 @@ import {
   Heading,
   Box,
   Text,
+  Link as ChakraLink,
 } from '@chakra-ui/react';
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-        const res = await signIn("credentials", {
-            email,
-            password,
-            redirect:false,
-        });
+      const res = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
 
-        if (res.error) {
-            setError("Invalid Credentials");
-            return;
-        }
+      if (res.error) {
+        setError('Invalid Credentials');
+        return;
+      }
 
-        router.replace("dashboard");
+      router.replace('/dashboard');
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
+  };
+
+  const handleForgotPassword = () => {
+    router.push('/forgot-password'); // Redirect to the forgot password page
   };
 
   return (
@@ -76,14 +80,15 @@ export default function LoginForm() {
           )}
         </form>
         <Text mt={4}>
-          Don't have an account?{" "}
-          <Button
-            variant="link"
-            color="blue.500"
-            onClick={() => router.push("/register")}
-          >
+          <ChakraLink onClick={handleForgotPassword} color="blue.500" cursor="pointer">
+            Forgot your password?
+          </ChakraLink>
+        </Text>
+        <Text mt={4}>
+          Don't have an account?{' '}
+          <ChakraLink href="/register" color="blue.500">
             Register
-          </Button>
+          </ChakraLink>
         </Text>
       </Box>
     </Container>
