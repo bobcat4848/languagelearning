@@ -21,7 +21,7 @@ export default function ChangeEmail() {
     try {
         const userAlreadyExistsRes = await fetch('api/userAlreadyExists', {
             method: "POST",
-            heades: {
+            headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ email }),
