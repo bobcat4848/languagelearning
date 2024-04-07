@@ -1,4 +1,5 @@
 'use client';
+import { useEffect } from 'react';
 import { Container, Button, Heading, Box, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react";
@@ -6,10 +7,13 @@ import AccountNavbar from '@/components/AccountNavbar';
 export default function ProfilePage() {
   const router = useRouter();
   const { data: session, status } = useSession();
-  if (!session) {
-    router.push('/login');
-    return null; 
-  }
+
+  useEffect(() => {
+    if (!session) {
+      router.push('/login');
+    }
+  }, [session]);
+
   const handleChangePassword = () => {
     router.push('/change-password');
   };
