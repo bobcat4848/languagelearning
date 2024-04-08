@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Container, Heading, Button, HStack, useColorModeValue } from '@chakra-ui/react';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaMicrochip, FaTasks, FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import { signOut } from "next-auth/react";
 import { useToast } from '@chakra-ui/react';
@@ -27,6 +27,9 @@ const AccountNavbar = () => {
             <Heading as="h3" size="lg" color="white">Language Leap</Heading>
         </Link>
         <HStack>
+        <Link href="/dashboard" passHref>
+            <Button leftIcon={<FaTasks />} colorScheme="blue" variant="ghost">Dashboard</Button>
+          </Link>
           <Link href="/profile" passHref>
             <Button leftIcon={<FaUserCircle />} colorScheme="blue" variant="ghost">Profile</Button>
           </Link>
