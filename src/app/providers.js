@@ -2,7 +2,7 @@
 
 const config = {
     initialColorMode: 'dark', // 'dark' | 'light'
-    useSystemColorMode: true,
+    useSystemColorMode: false,
 }
 
 import { ChakraProvider } from '@chakra-ui/react'
