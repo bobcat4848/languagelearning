@@ -4,7 +4,7 @@ import { FaMicrochip, FaTasks, FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import { signOut } from "next-auth/react";
 import { useToast } from '@chakra-ui/react';
-
+import ColorModeToggle from './darkModeToggle';
 const AccountNavbar = () => {
   const toast = useToast();
   const bgColor = useColorModeValue('white', 'gray.700');
@@ -27,6 +27,7 @@ const AccountNavbar = () => {
             <Heading as="h3" size="lg" color="white">Language Leap</Heading>
         </Link>
         <HStack>
+        <ColorModeToggle/>
         <Link href="/dashboard" passHref>
             <Button leftIcon={<FaTasks />} colorScheme="blue" variant="ghost">Dashboard</Button>
           </Link>
