@@ -25,7 +25,7 @@ import {
     Text,
     Tooltip
 } from '@chakra-ui/react';
-
+import ColorModeToggle from './darkModeToggle';
 export default function Navbar() {
     return (
         <Box>
@@ -40,6 +40,7 @@ export default function Navbar() {
                 </Box>
                 <Spacer />
                 <ButtonGroup gap='2'>
+                    <ColorModeToggle/>
                     <Button as="a" href="/login">
                         Login
                     </Button>
