@@ -14,6 +14,7 @@ export default function Dashboard() {
   const router = useRouter();
   const bgColor = useColorModeValue('white', 'gray.700');
   const hoverBgColor = useColorModeValue('gray.100', 'gray.600');
+  const activityLogBg = useColorModeValue( "gray.200", "gray.600");
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   if (status === 'loading') {
@@ -180,7 +181,7 @@ export default function Dashboard() {
           <Heading as="h3" size="md" mb={4}>Activity Log</Heading>
           <Stack spacing={3}>
             {userLogs.map((log, index) => (
-              <Box key={index} p={3} bg="gray.600" borderRadius="md">
+              <Box key={index} p={3} bg={activityLogBg} borderRadius="md">
                 <Text fontWeight="bold">{log.event}</Text>
                 <Badge colorScheme="blue">{log.timestamp}</Badge>
               </Box>

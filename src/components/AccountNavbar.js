@@ -7,8 +7,7 @@ import { useToast } from '@chakra-ui/react';
 import ColorModeToggle from './darkModeToggle';
 const AccountNavbar = () => {
   const toast = useToast();
-  const bgColor = useColorModeValue('white', 'gray.700');
-  const hoverBgColor = useColorModeValue('gray.100', 'gray.600');
+  const bgColor = useColorModeValue('gray.100', 'gray.700');
 
   const handleSignOut = () => {
     signOut({ redirect: true, callbackUrl: '/' });
@@ -21,10 +20,10 @@ const AccountNavbar = () => {
   };
 
   return (
-    <Box as="nav" bg={bgColor} w="100%" p={4} color="black" boxShadow="sm">
+    <Box as="nav" bgColor={bgColor} w="100%" p={4} boxShadow="sm">
       <Container maxW="6xl" display="flex" justifyContent="space-between" alignItems="center">
         <Link href="/dashboard" passHref>
-            <Heading as="h3" size="lg" color="white">Language Leap</Heading>
+            <Heading as="h3" size="lg">Language Leap</Heading>
         </Link>
         <HStack>
         <ColorModeToggle/>
