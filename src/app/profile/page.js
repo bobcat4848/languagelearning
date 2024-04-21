@@ -33,11 +33,9 @@ export default function ProfilePage() {
         borderRadius="lg"
         p={8}
         boxShadow="lg"
-        bg="white"
-        color="gray.800"
       >
-        <Heading as="h2" mb={4} textAlign="center">
-          Welcome to Your Profile
+        <Heading as="h2" mb={4} >
+          Your Profile
         </Heading>
         <Box mb={4}>
           <Text fontSize="lg">
@@ -60,19 +58,6 @@ export default function ProfilePage() {
         >
           Change Password
         </Button>
-        <Button
-          colorScheme="blue"
-          onClick={handleDashboardClick}
-          mb={4}
-          w="100%"
-        >
-          Dashboard
-        </Button>
-        <Box mt={4}>
-          <Text fontWeight="bold">Profile Summary:</Text>
-          <Text mt={2}>
-          </Text>
-        </Box>
         {/* More profile details can be added */}
       </Box>
     </Container>
