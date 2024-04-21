@@ -36,18 +36,25 @@ const ChatPage = () => {
       const lastUserMessages = updatedChatHistory
         .filter(chat => chat.sender === 'user')
         .slice(-10); // Get last 10 user messages to prevent too many tokens being used
-
+  
       const lastBotMessages = updatedChatHistory
         .filter(chat => chat.sender === 'assistant')
         .slice(-10); // Get last 10 assistant messages to prevent too many tokens being used
-
+  
       const messagesToSend = [...lastUserMessages, ...lastBotMessages];
-
+  
+      let promptText = "You are assisting a user with learning or working on their japanese skills. Provide as much information that you can. Provide some cultural information as well if relevant\n";
+      messagesToSend.forEach(chat => {
+        promptText += `${chat.sender}: ${chat.message}\n`;
+      });
+      promptText += `User: ${inputText}\n`;
+      promptText += `Assistant: `;
+  
       const response = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
           model: 'gpt-4-0125-preview',
-          messages: messagesToSend.map(chat => ({ role: chat.sender, content: chat.message })),
+          messages: [{ role: 'user', content: promptText }],
         },
         {
           headers: {
